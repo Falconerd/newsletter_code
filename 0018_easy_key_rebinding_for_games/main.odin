@@ -40,7 +40,7 @@ input_update_sdl3 :: proc() {
 	for sdl.PollEvent(&event) {
 		#partial switch event.type {
 		case .KEY_DOWN:
-			// Check if key was already down, etc
+			// Check if key was previously up, etc
 		case .KEY_UP:
 			// ...
 		}
@@ -50,12 +50,12 @@ input_update_sdl3 :: proc() {
 main :: proc() {
 	window_size := rl.Vector2{1280, 720}
 
-	rl.InitWindow(i32(window_size.x), i32(window_size.y), "My Game")
+	rl.InitWindow(i32(window_size.x), i32(window_size.y), "Your Game")
 
 	font := rl.LoadFont("dwarven_axe.ttf")
 	font_size :: 48
 
-	config_load(input_map)
+	config_load_and_apply(&input_map)
 
 	for !rl.WindowShouldClose() {
 		input_update()
